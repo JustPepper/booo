@@ -1,0 +1,10 @@
+use-box-sizing-reset()
+    if selector() is "&"
+        html
+            box-sizing: border-box
+
+        *, *:before, *:after
+            box-sizing: inherit
+    else
+        *, *:before, *:after
+            box-sizing: border-box

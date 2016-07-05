@@ -1,0 +1,22 @@
+.grid {
+  display: flex;
+  flex-direction: row;
+  height: inherit;
+}
+@media screen and (max-width: 480px) {
+  .grid {
+    flex-direction: column;
+  }
+}
+.col {
+  flex: 1;
+}
+.grid-top {
+  align-items: flex-start;
+}
+.grid-bottom {
+  align-items: flex-end;
+}
+.grid-center {
+  align-items: center;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "booo",
+  "version": "0.0.3",
+  "description": "Stylus helpers",
+  "main": "lib/booo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustPepper/dune.git"
+  },
+  "author": "JustPepper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustPepper/dune/issues"
+  },
+  "homepage": "https://github.com/JustPepper/dune#readme",
+  "devDependencies": {}
+}
