@@ -1,0 +1,17 @@
+{
+  "name": "booo",
+  "description": "A better way to approach DRY and avoid unused clases in your CSS projects.",
+  "main": "index.styl",
+  "authors": [
+    "JustPepper"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/JustPepper/booo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
