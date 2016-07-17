@@ -1,6 +1,6 @@
 {
   "name": "booo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Stylus helpers",
   "main": "lib/booo.js",
   "scripts": {
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JustPepper/dune.git"
+    "url": "git+https://github.com/JustPepper/booo"
   },
   "author": "JustPepper",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JustPepper/dune/issues"
+    "url": "https://github.com/JustPepper/booo/issues"
   },
-  "homepage": "https://github.com/JustPepper/dune#readme",
+  "homepage": "",
   "devDependencies": {}
 }

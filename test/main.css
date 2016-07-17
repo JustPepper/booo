@@ -1,22 +1,17 @@
-.grid {
-  display: flex;
-  flex-direction: row;
-  height: inherit;
-}
-@media screen and (max-width: 480px) {
-  .grid {
-    flex-direction: column;
-  }
-}
-.col {
-  flex: 1;
-}
-.grid-top {
-  align-items: flex-start;
-}
-.grid-bottom {
-  align-items: flex-end;
-}
-.grid-center {
-  align-items: center;
+.btn {
+  -webkit-appearance: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: #1abc9c;
+  border-radius: 0.375em;
+  border: 1px solid transparent;
+  display: inline-block;
+  font-size: 0.9375em;
+  font-weight: normal;
+  line-height: 1.471;
+  padding: 0.625em 1.1875em;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-decoration: none;
+  outline: 0;
+  user-select: none;
 }
