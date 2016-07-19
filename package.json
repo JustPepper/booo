@@ -1,7 +1,7 @@
 {
   "name": "booo",
-  "version": "0.0.4",
-  "description": "Stylus helpers",
+  "version": "0.0.5",
+  "description": "A better way to approach DRY and avoid unused clases in your CSS projects.",
   "main": "lib/booo.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
