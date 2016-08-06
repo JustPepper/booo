@@ -1,21 +1,2 @@
-/* -----------------------------------
- * Setup you third party dependencies 
- * $path = "bower_components" by Default
- * $dependencies = hint, color
- -------------------------------------*/
-
-if $path is defined
-    if $dependencies is defined
-        for num in range(0,(length($dependencies) - 1))
-            $dev_route = $path + '/' + $dependencies[num] + '/'
-            @require $dev_route
-else
-    $path = "bower_components"
-    if $dependencies is defined
-        for num in range(0,(length($dependencies) - 1))
-            $dev_route = $path + '/' + $dependencies[num] + '/'
-            @require $dev_route
-
-
 @import 'lib/booo'
 

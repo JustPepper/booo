@@ -1,0 +1,877 @@
+/* ---------------------------------
+ * Imagehover
+ * Author: http://www.imagehover.io/
+ * Default options :
+ * _fade = true {Boolean}
+ ----------------------------------- */
+use-image-hover( o = {} )
+    
+    $disabled = o._disable ? unquote(o._disable) : null
+    
+    use('../core/disable.js', { disabled: $disabled })
+    
+    _background = _background in o ? o._background : #2c3e50
+    _caption-background = _caption-background in o ? o._caption-background : #2c3e50
+    _text = _text in o ? o._text : white
+    _link = _link in o ? o._link : false
+    _fade = _fade in o ? o._fade : true
+    _fade-in-up = _fade-in-up in o ? o._fade-in-up : false
+    _fade-in-down = _fade-in-down in o ? o._fade-in-down : false
+    _fade-in-left = _fade-in-left in o ? o._fade-in-left : false
+    _fade-in-right = _fade-in-right in o ? o._fade-in-right : false
+    _push = _push in o ? o._push : false
+    _push-up = _push-up in o ? o._push-up : false
+    _push-down = _push-down in o ? o._push-down : false
+    _push-left = _push-left in o ? o._push-left : false
+    _push-right = _push-right in o ? o._push-right : false
+    _slide = _slide in o ? o._slide : false
+    _slide-up = _slide-up in o ? o._slide-up : false
+    _slide-down = _slide-down in o ? o._slide-down : false
+    _slide-left = _slide-left in o ? o._slide-left : false
+    _slide-right = _slide-right in o ? o._slide-right : false
+    _slide-top-left = _slide-top-left in o ? o._slide-top-left : false
+    _slide-top-right = _slide-top-right in o ? o._slide-top-right : false
+    _slide-bottom-left = _slide-bottom-left in o ? o._slide-bottom-left : false
+    _slide-bottom-right = _slide-bottom-right in o ? o._slide-bottom-right : false
+    _reveal = _reveal in o ? o._reveal : false
+    _reveal-up = _reveal-up in o ? o._reveal-up : false
+    _reveal-down = _reveal-down in o ? o._reveal-down : false
+    _reveal-left = _reveal-left in o ? o._reveal-left : false
+    _reveal-right = _reveal-right in o ? o._reveal-right : false
+    _reveal-top-left = _reveal-top-left in o ? o._reveal-top-left : false
+    _reveal-top-right = _reveal-top-right in o ? o._reveal-top-right : false
+    _reveal-bottom-left = _reveal-bottom-left in o ? o._reveal-bottom-left : false
+    _reveal-bottom-right = _reveal-bottom-right in o ? o._reveal-bottom-right : false
+    _hinge = _hinge in o ? o._hinge : false
+    _hinge-up = _hinge-up in o ? o._hinge-up : false
+    _hinge-down = _hinge-down in o ? o._hinge-down : false
+    _hinge-left = _hinge-left in o ? o._hinge-left : false
+    _hinge-right = _hinge-right in o ? o._hinge-right : false
+    _flip = _flip in o ? o._flip : false
+    _flip-vert = _flip-vert in o ? o._flip-vert : false
+    _flip-horiz = _flip-horiz in o ? o._flip-horiz : false
+    _flip-diag-1 = _flip-diag-1 in o ? o._flip-diag-1 : false
+    _flip-diag-2 = _flip-diag-2 in o ? o._flip-diag-2 : false
+    _shutter-out = _shutter-out in o ? o._shutter-out : false
+    _shutter-in = _shutter-in in o ? o._shutter-in : false
+    _fold = _fold in o ? o._fold : false
+    _fold-up = _fold-up in o ? o._fold-up : false
+    _fold-down = _fold-down in o ? o._fold-down : false
+    _fold-left = _fold-left in o ? o._fold-left : false
+    _fold-right = _fold-right in o ? o._fold-right : false
+    _zoom-in = _zoom-in in o ? o._zoom-in : false
+    _zoom-out = _zoom-out in o ? o._zoom-out : false
+    _zoom-out-up = _zoom-out-up in o ? o._zoom-out-up : false
+    _zoom-out-down = _zoom-out-down in o ? o._zoom-out-down : false
+    _zoom-out-left = _zoom-out-left in o ? o._zoom-out-left : false
+    _zoom-out-right = _zoom-out-right in o ? o._zoom-out-right : false
+    _zoom-out-flip-horiz = _zoom-out-flip-horiz in o ? o._zoom-out-flip-horiz : false
+    _zoom-out-flip-vert = _zoom-out-flip-vert in o ? o._zoom-out-flip-vert : false
+    _blur = _blur in o ? o._blur : false
+    
+    [class*='hvr--']
+        background-color _background
+        backface-visibility hidden
+        -webkit-backface-visibility hidden
+        color _text
+        display inline-block /* Make it changeable */
+        -moz-osx-font-smoothing grayscale
+        margin 0
+        max-width 100%
+        position relative
+        transform translateZ(0)
+        overflow hidden
+    
+    +class('hvr__image')
+        vertical-align top
+        max-width 100%
+    
+    +class('hvr__caption')
+        background-color _caption-background
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+    
+    +class('hvr__link')
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+    
+    [class*='hvr--'],
+    [class*='hvr--']:before,
+    [class*='hvr--']:after,
+    [class*='hvr--'] *,
+    [class*='hvr--'] *:before,
+    [class*='hvr--'] *:after {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+    }
+    
+    /*! # Fade 
+        ----------------------*/
+    if _fade 
+        [class*='hvr--fade'] .hvr__caption
+            opacity 0
+        
+        [class*='hvr--fade']:hover .hvr__image
+            opacity 0
+        
+        [class*='hvr--fade']:hover .hvr__caption
+            opacity 1
+        
+        [class*='hvr--fade']:hover .hvr__image
+        [class*='hvr--fade']:hover .hvr__caption
+            transform translate(0px, 0px)
+        
+        
+        /*! hvr--fade-in-up 
+            ----------------------*/
+        if _fade-in-up
+            +class('hvr--fade-in-up')
+                .hvr__caption
+                    transform translate(0px, 15%)
+                
+        /*! hvr--fade-in-down
+            ---------------------- */
+        if _fade-in-down    
+            +class('hvr--fade-in-down')
+                .hvr__caption
+                    transform translate(0px, -15%)
+        
+        /*! hvr--fade-in-left
+            ---------------------- */
+        if _fade-in-left
+            +class('hvr--fade-in-left')
+                .hvr__caption
+                    transform translate(-15%, 0)
+            
+        /*! hvr--fade-in-right
+            ---------------------- */
+        if _fade-in-right
+            +class('hvr--fade-in-right')
+                .hvr__caption
+                    transform translate(15%, 0)
+    
+    /*! # Push 
+        ----------------------*/
+    if _push
+        [class*='hvr--push-']:hover
+            .hvr__caption
+                transform translate(0, 0) 
+                
+        /*! hvr--push-up 
+            ---------------------- */
+        if _push-up
+            +class('hvr--push-up')
+                .hvr__caption
+                    transform translateY(100%)
+            
+            +class('hvr--push-up')
+                &:hover .hvr__image
+                    transform translateY(-100%)
+        
+        /*! hvr--push-down 
+            ---------------------- */
+        if _push-down
+            +class('hvr--push-down')
+                .hvr__caption
+                    transform translateY(-100%)
+            
+            +class('hvr--push-down')
+                &:hover .hvr__image
+                    transform translateY(100%)
+                
+        /*! hvr--push-left 
+            ---------------------- */
+        if _push-left
+            +class('hvr--push-left')
+                .hvr__caption
+                    transform translateX(100%)
+            
+            +class('hvr--push-left')
+                &:hover .hvr__image
+                    transform translateX(-100%)
+                
+        /*! hvr--push-right 
+            ---------------------- */
+        if _push-right
+            +class('hvr--push-right')
+                .hvr__caption
+                    transform translateX(-100%)
+            
+            +class('hvr--push-right')
+                &:hover .hvr__image
+                    transform translateX(100%)
+    
+    /*! # Slide 
+        ----------------------*/
+    if _slide
+        [class*='hvr--slide-']:hover
+            .hvr__caption
+                transform translate(0, 0)
+                
+        /*! hvr--slide-up 
+            ---------------------- */
+        if _slide-up
+            +class('hvr--slide-up')
+                .hvr__caption
+                    transform translateY(100%)
+        
+        /*! hvr--slide-down 
+            ---------------------- */
+        if _slide-down
+            +class('hvr--slide-down')
+                .hvr__caption
+                    transform translateY(-100%)
+            
+        /*! hvr--slide-left 
+            ---------------------- */
+        if _slide-left
+            +class('hvr--slide-left')
+                .hvr__caption
+                    transform translateX(100%)
+        
+        /*! hvr--slide-right 
+            ---------------------- */
+        if _slide-right
+            +class('hvr--slide-right')
+                .hvr__caption
+                    transform translateX(-100%)
+        
+        /*! hvr--slide-top-left
+            ---------------------- */
+        if _slide-top-left
+            +class('hvr--slide-top-left')
+                .hvr__caption
+                    transform translate(-100%, -100%)
+        
+        /*! hvr--slide-top-right
+            ---------------------- */
+        if _slide-top-right
+            +class('hvr--slide-top-right')
+                .hvr__caption
+                    transform translate(100%, -100%)
+        
+        /*! hvr--slide-bottom-left
+            ---------------------- */
+        if _slide-bottom-left
+            +class('hvr--slide-bottom-left')
+                .hvr__caption
+                    transform translate(-100%, 100%)
+        
+        /*! hvr--slide-bottom-right
+            ---------------------- */
+        if _slide-bottom-right
+            +class('hvr--slide-bottom-right')
+                .hvr__caption
+                    transform translate(100%, 100%)
+    
+    /*! # Reveal 
+        ----------------------*/
+    if _reveal
+        [class*='hvr--reveal-']:before
+            position absolute
+            top 0
+            bottom 0
+            left 0
+            right 0
+            content ''
+            background _background
+            
+        [class*='hvr--reveal-']
+            .hvr__caption
+                opacity 0
+                
+        [class*='hvr--reveal-']:hover:before
+            transform translate(0, 0)
+        
+        [class*='hvr--reveal-']:hover .hvr__caption
+            opacity 1
+            transition-delay 0.21s
+            
+        /*! hvr--reveal-up 
+            ---------------------- */
+        if _reveal-up
+            +class('hvr--reveal-up')
+                &:before
+                    transform translateY(100%)
+                
+        /*! hvr--reveal-down 
+            ---------------------- */
+        if _reveal-down
+            +class('hvr--reveal-down')
+                &:before
+                    transform translateY(-100%)
+            
+        /*! hvr--reveal-left 
+            ---------------------- */
+        if _reveal-left
+            +class('hvr--reveal-left')
+                &:before
+                    transform translateX(100%)
+            
+        /*! hvr--reveal-right 
+            ---------------------- */
+        if _reveal-right
+            +class('hvr--reveal-right')
+                &:before
+                    transform translateX(-100%)
+        
+        /*! hvr--reveal-top-left 
+            ---------------------- */
+        if _reveal-top-left
+            +classs('hvr--reveal-top-left')
+                &:before
+                    transform translate(-100%, -100%)
+        
+        /*! hvr--reveal-top-right 
+            ---------------------- */
+        if _reveal-top-right
+            +class('hvr--reveal-top-right')
+                &:before
+                    transform translate(100%, -100%)
+        
+        /*! hvr--reveal-top-left 
+            ---------------------- */
+        if _reveal-bottom-left
+            +class('hvr--reveal-bottom-left')
+                &:before
+                    transform translate(-100%, 100%)
+        
+        /*! hvr--reveal-bottom-left 
+            ---------------------- */
+        if _reveal-bottom-right
+            +class('hvr--reveal-bottom-right')
+                &:before
+                    transform translate(100%, 100%)
+    
+    /*! # Hinge 
+        ----------------------*/
+    if _hinge
+        [class*='hvr--hinge-']
+            perspective: 50em
+            .hvr__caption
+                opacity 0
+                z-index 1
+            &:hover .hvr__image
+                opacity 0
+            &:hover .hvr__caption
+                opacity 1
+                transition-delay 0.21s
+        /*! hvr--hinge-up 
+            ---------------------- */
+        if _hinge-up
+            +class('hvr--hinge-up') 
+                .hvr__image
+                    transform-origin 50% 0%
+                .hvr__caption
+                    transform rotateX(90deg)
+                    transform-origin 50% 100%
+                &:hover .hvr__image
+                    transform rotateX(-90deg)
+                &:hover .hvr__caption
+                    transform rotateX(0deg)
+                    
+        /*! hvr--hinge-down 
+            ---------------------- */
+        if _hinge-down
+            +class('hvr--hinge-down') 
+                .hvr__image
+                    transform-origin 50% 100%
+                .hvr__caption
+                    transform rotateX(-90deg)
+                    transform-origin 50% -50%
+                &:hover .hvr__image
+                    transform rotateX(90deg)
+                &:hover .hvr__caption
+                    transform rotateX(0deg)
+        
+        /*! hvr--hinge-left 
+            ---------------------- */
+        if _hinge-left
+            +class('hvr--hinge-left')
+                .hvr__image
+                    transform-origin 0% 50%
+                .hvr__caption
+                    transform rotateY(-90deg)
+                    transform-origin 100% 50%
+                &:hover .hvr__image
+                    transform rotateY(90deg)
+                &:hover .hvr__caption
+                    transform rotateY(0deg)
+        
+        /*! hvr--hinge-right 
+            ---------------------- */
+        if _hinge-right
+            +class('hvr--hinge-right') 
+                .hvr__image
+                    transform-origin 100% 50%
+                .hvr__caption
+                    transform rotateY(90deg)
+                    transform-origin 0% -50%
+                &:hover .hvr__image
+                    transform rotateY(-90deg)
+                &:hover .hvr__caption
+                    transform rotateY(0deg)
+    
+    /*! # Flip 
+        ----------------------*/
+    if _flip
+        [class*='hvr--flip-']
+            perspective 50em
+            .hvr__image
+                backface-visibility hidden
+            .hvr__caption
+                opacity 0
+            &:hover .hvr__image
+                opacity 0
+            &:hover .hvr__caption
+                opacity 1
+                transition-delay 0.13999999999999999s
+                
+        /*! hvr--flip-horiz 
+        ----------------------*/
+        if _flip-horiz
+            +class('hvr--flip-horiz')
+                .hvr__caption
+                    transform rotateX(90deg)
+                    transform-origin 0% 50%
+                &:hover .hvr__image
+                    transform rotateX(-180deg)
+                &:hover .hvr__caption
+                    transform rotateX(0deg)
+        
+        /*! hvr--flip-vert 
+        ----------------------*/
+        if _flip-vert
+            +class('hvr--flip-vert')
+                .hvr__caption
+                    transform rotateY(90deg)
+                    transform-origin 50% 0%
+                &:hover .hvr__image
+                    transform rotateY(-180deg)
+                &:hover .hvr__caption
+                    transform rotateY(0deg)
+        
+        /*! hvr--flip-diag-1 
+        ----------------------*/
+        if _flip-diag-1
+            +class('hvr--flip-diag-1')
+                .hvr__caption
+                    transform rotate3d(1, -1, 0, 100deg)
+                &:hover .hvr__image
+                    transform rotate3d(-1, 1, 0, 100deg)
+                &:hover .hvr__caption
+                    transform rotate3d(0, 0, 0, 0deg)
+        
+        /*! hvr--flip-diag-2
+        ----------------------*/
+        if _flip-diag-2
+            +class('hvr--flip-diag-2')
+                    transform rotate3d(1, 1, 0, 100deg)
+                &:hover .hvr__image
+                    transform rotate3d(-1, -1, 0, 100deg)
+                &:hover .hvr__caption
+                    transform rotate3d(0, 0, 0, 0deg)
+    
+    /*! # Shutter out 
+        ----------------------*/
+    if _shutter-out
+        [class*='hvr--shutter-out-']:before
+            background _background
+            position absolute
+            content ''
+            transition-delay 0.105s
+        [class*='hvr--shutter-out-'] .hvr__caption
+            opacity 0
+            transition-delay 0s
+        [class*='hvr--shutter-out-']:hover:before
+            transition-delay 0s
+        [class*='hvr--shutter-out-']:hover .hvr__caption
+            opacity 1
+            transition-delay 0.105s
+                
+        /*! hvr--sutter-out-horiz 
+            ----------------------*/
+        if _shutter-out-horiz
+            +class('hvr--shutter-out-horiz')
+                &:before
+                    left 50%
+                    right 50%
+                    top 0
+                    bottom 0
+            +class('hvr--shutter-out-horiz')
+                &:hover:before
+                    left 0
+                    right 0
+        
+        /*! hvr--sutter-out-horiz 
+            ----------------------*/
+        if _shutter-out-vert
+            +class('hvr--shutter-out-vert')
+                &:before
+                    top 50%
+                    bottom 50%
+                    left 0
+                    right 0
+            +class('hvr--shutter-out-vert')
+                &:hover:before
+                    top 0
+                    bottom 0
+        
+        /*! hvr--sutter-out-diag-1 
+            ----------------------*/
+        if _shutter-out-diag-1
+            +class('hvr--shutter-out-diag-1')
+                &:before
+                    top 50%
+                    bottom 50%
+                    left -35%
+                    right -35%
+                    transform rotate(45deg)
+            +class('hvr--shutter-out-diag-1')
+                &:hover:before
+                    top -35%
+                    bottom -35%
+        
+        /*! hvr--sutter-out-diag-2
+            ----------------------*/
+        if _shutter-out-diag-2
+            +class('hvr--shutter-out-diag-2')
+                &:before
+                    top 50%
+                    bottom 50%
+                    left -35%
+                    right -35%
+                    transform rotate(-45deg)
+            +class('hvr--shutter-out-diag-2')
+                &:hover:before
+                    top -35%
+                    bottom -35%
+    
+    /*! # Shutter in 
+        ----------------------*/
+    if _shutter-in
+        [class*='hvr--shutter-in-']:after
+        [class*='hvr--shutter-in-']:before
+            background _background
+            position absolute
+            content ''
+        [class*='hvr--shutter-in-']:after
+            top 0
+            left 0
+        [class*='hvr--shutter-in-']:before
+            right 0
+            bottom 0
+        [class*='hvr--shutter-in-'] .hvr__caption
+            opacity 0
+            z-index 1
+        [class*='hvr--shutter-in-']:hover .hvr__caption
+            opacity 1
+            transition-delay 0.21s
+            
+        /*! hvr--sutter-in-horiz 
+            ----------------------*/
+        if _sutter-in-horiz
+            +class('hvr--shutter-in-horiz')
+                &:after
+                &:before
+                    width 0
+                    height 100%
+            
+            +class('hvr--shutter-in-horiz')
+                &:hover
+                    &:after
+                    &:before
+                        width 50%
+        
+        /*! hvr--sutter-in-vert 
+            ----------------------*/
+        if _sutter-in-vert
+            +class('hvr--shutter-in-vert')
+                &:after
+                &:before
+                    height 0
+                    width 100%
+            
+            +class('hvr--shutter-in-vert')
+                &:hover
+                    &:after
+                    &:before
+                        height 50%
+        
+        /*! hvr--sutter-in-out-horiz 
+            ----------------------*/
+        if _sutter-in-out-horiz
+            +class('hvr--shutter-in-out-horiz')
+                &:after
+                &:before
+                    width 0
+                    height 100%
+            +class('hvr--shutter-in-out-horiz')
+                &:hover
+                    &:after
+                    &:before
+                        width 100%
+                        opacity 0.75
+        
+        /*! hvr--sutter-in-out-vert 
+            ----------------------*/
+        if _sutter-in-out-vert
+            +class('hvr--shutter-in-out-vert')
+                &:after
+                &:before
+                    height 0
+                    width 100%
+            +class('hvr--shutter-in-out-vert')
+                &:hover
+                    &:after
+                    &:before
+                        height 100%
+                        opacity 0.75
+        
+        /*! hvr--sutter-in-out-diag-1
+            ----------------------*/
+        if _sutter-in-out-diag-1
+            +class('hvr--shutter-in-out-diag-1')
+                &:after
+                &:before
+                    width 200%
+                    height 200%
+                    transition all 0.6s ease
+                    opacity 0.75
+            +class('hvr--shutter-in-out-diag-1')
+                &:after
+                    transform skew(-45deg) translateX(-150%)
+                &:before
+                    transform skew(-45deg) translateX(150%)
+            +class('hvr--shutter-in-out-diag-1')
+                &:hover
+                    &:after
+                        transform skew(-45deg) translateX(-50%)
+                    &:before
+                        transform skew(-45deg) translateX(50%)
+        
+        /*! hvr--sutter-in-out-vert 
+            ----------------------*/
+        if _sutter-in-out-diag-2
+            +class('hvr--shutter-in-out-diag-2')
+                &:after
+                &:before
+                    width 200%
+                    height 200%
+                    transition all 0.6s ease
+                    opacity 0.75
+            +class('hvr--shutter-in-out-diag-2')
+                &:after
+                    transform skew(45deg) translateX(-100%)
+                &:before
+                    transform skew(45deg) translateX(100%)
+            +class('hvr--shutter-in-out-diag-2')
+                &:hover
+                    &:after
+                        transform skew(45deg) translateX(0%)
+                    &:before
+                        transform skew(45deg) translateX(0%)
+                        
+    /*! # Fold 
+        ----------------------*/
+    if _fold
+        [class*='hvr--fold']
+            perspective 50em
+            .hvr__image
+                transform-origin 50% 0%
+            .hvr__caption
+                z-index 1
+                opacity 0
+            &:hover
+                .hvr__image
+                    opacity 0
+                    transition-delay 0
+                .hvr__caption
+                    transform rotateX(0deg) translate3d(0, 0%, 0) scale(1)
+                    opacity 1
+                    transition-delay 0.21s
+        if _fold-up
+            +class('hvr--fold-up')
+                .hvr__image
+                    transform-origin 50% 0%
+                .hvr__caption
+                    transform rotateX(-90deg) translate3d(0%, -50%, 0) scale(0.6)
+                &:hover .hvr__image
+                    transform rotateX(90deg) scale(0.6) translateY(50%)
+        
+        if _fold-down
+            +class('hvr--fold-down')
+                .hvr__image
+                    transform-origin 50% 100%
+                .hvr__caption
+                    transform rotateX(90deg) translate3d(0%, 50%, 0) scale(0.6)
+                &:hover .hvr__image
+                    transform rotateX(-90deg) scale(0.6) translateY(-50%)
+        
+        if _fold-left
+            +class('hvr--fold-left')
+                .hvr__image
+                    transform-origin 0% 50%
+                .hvr__caption
+                    transform rotateY(90deg) translate3d(-50%, 0%, 0) scale(0.6)
+                    transform-origin 100% 50%
+                &:hover .hvr__image
+                    transform rotateY(-90deg) scale(0.6) translateX(50%)
+        
+        if _fold-right
+            +class('hvr--fold-right')
+                perspective 50em
+                .hvr__image
+                    transform-origin 100% 50%
+                .hvr__caption
+                    transform rotateY(-90deg) translate3d(50%, 0%, 0) scale(0.6)
+                    transform-origin 0% 50%
+                &:hover .hvr__image
+                     transform rotateY(90deg) scale(0.6) translateX(-50%)
+                     
+    /*! # Zoom in 
+        ----------------------*/
+    if _zoom-in
+        +class('hvr--zoom-in')
+            .hvr__caption
+                opacity 0
+                transform scale(0.5)
+            &:hover
+                .hvr__caption
+                    transform scale(1)
+                    opacity 1
+    
+    /*! # Zoom out 
+        ----------------------*/
+    if _zoom-out
+        [class*='hvr--zoom-out']
+            .hvr__caption
+                transform scale(0.5)
+                transform-origin 50% 50%
+                opacity 0
+            &:hover
+                .hvr__caption
+                    transform scale(1)
+                    opacity 1
+                    transition-delay 0.35s
+        +class('hvr--zoom-out')
+            &:hover .hvr__image
+                transform scale(0.5)
+                opacity 0
+        
+        if _zoom-out-up
+            +class('hvr--zoom-out-up')
+                &:hover
+                    .hvr__image
+                        animation: hvr-zoom-out-up 0.40249999999999997s linear
+                        animation-iteration-count: 1;
+                        animation-fill-mode: forwards;
+            @keyframes hvr-zoom-out-up
+                50%
+                    opacity 0.5
+                    transform scale(0.8) translateY(0%)
+                100%
+                    opacity 0.5
+                    transform scale(0.8) translateY(-150%)
+        
+        if _zoom-out-down
+            +class('hvr--zoom-out-down')
+                &:hover
+                    .hvr__image
+                        animation: hvr-zoom-out-down 0.40249999999999997s linear;
+                        animation-iteration-count: 1;
+                        animation-fill-mode: forwards;
+                @keyframes hvr-zoom-out-down
+                    50%
+                        transform scale(0.8) translateY(0%)
+                        opacity 0.5
+                    100%
+                        transform scale(0.8) translateY(150%)
+                        opacity 0.5
+        
+        if _zoom-out-left
+            +class('hvr--zoom-out-left')
+                &:hover
+                    .hvr__image
+                        animation: hvr-zoom-out-left 0.40249999999999997s linear;
+                        animation-iteration-count: 1;
+                        animation-fill-mode: forwards;
+                @keyframes hvr-zoom-out-left
+                    50%
+                        transform scale(0.8) translateX(0%)
+                        opacity 0.5
+                    100%
+                        transform scale(0.8) translateX(-150%)
+                        opacity 0.5
+        
+        if _zoom-out-right
+            +class('hvr--zoom-out-right')
+                &:hover
+                    .hvr__image
+                        animation: hvr-zoom-out-right 0.40249999999999997s linear;
+                        animation-iteration-count: 1;
+                        animation-fill-mode: forwards;
+                @keyframes hvr-zoom-out-right
+                    50%
+                        transform scale(0.8) translateX(0%)
+                        opacity 0.5
+                    100%
+                        transform scale(0.8) translateX(150%)
+                        opacity 0.5
+        
+        if _zoom-out-flip-horiz
+            +class('hvr--zoom-out-flip-horiz')
+                perspective 50em
+                .hvr__caption
+                    opacity 0
+                    transform rotateX(90deg) translateY(-100%) scale(0.5)
+                &:hover
+                    .hvr__image
+                        transform rotateX(-100deg) translateY(50%) scale(0.5)
+                        opacity 0
+                        transition-delay 0
+                    .hvr__caption
+                        transform rotateX(0deg) translateY(0%) scale(1)
+                        opacity 1
+                        transition-delay 0.35s
+        
+        if _zoom-out-flip-vert
+            +class('hvr--zoom-out-flip-vert')
+                perspective 50em
+                .hvr__caption
+                    opacity 0
+                    transform rotateY(90deg) translate(50%, 0px) scale(0.5)
+                &:hover
+                    .hvr__image
+                        transform: rotateY(-100deg) translateX(50%) scale(0.5);
+                        opacity 0
+                        transition-delay 0
+                    .hvr__caption
+                        transform rotateY(0deg) translate(0px, 0px) scale(1)
+                        opacity 1
+                        transition-delay 0.35s
+        
+    /*! # Blur
+        ----------------------*/
+    if _blur
+        +class('hvr--blur')
+            .hvr__caption
+                opacity 0
+            &:hover
+                .hvr__image
+                    -webkit-filter: blur(30px);
+                    filter blur(30px)
+                    transform scale(1.2)
+                    opacity 0
+                .hvr__caption
+                    opacity 1
+                    transition-delay 0.21s
+    
