@@ -1,0 +1,16 @@
+/* ----------------------------------------
+ * Font Face
+ * _url : relative path of typography
+ * _alias : font name ( default: basename )
+ ------------------------------------------ */
+font-face( _url, _alias = basename(_url) )
+
+    _dir = dirname(_url)
+    _name = basename(_url)
+    
+    @font-face
+        font-family: _alias
+        src: url( pathjoin(_dir, _name + '.woff2') ) format('woff2'),
+             url( pathjoin(_dir, _name + '.woff') ) format('woff')
+        font-weight: normal;
+        font-style: normal;

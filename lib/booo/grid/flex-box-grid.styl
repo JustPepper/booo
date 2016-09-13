@@ -29,11 +29,10 @@ use-flex-grid( o = {} )
     if _simple 
         +class('grid')
             display: flex
-            color: _simple
             @media ( max-width: _small  )
                 flex-direction: column
             & 
-                +class('col')
+                +class('grid__col')
                     flex: 1
     if _gutters
         +class('grid_gutters')
@@ -42,14 +41,14 @@ use-flex-grid( o = {} )
             @media ( max-width: _small  )
                 flex-direction: column
             &
-                +class('col')
+                +class('grid_col')
                     width: 'calc(%s - %s)' % ( ( 100 / _columns )% _space )
                     @media ( max-width: _small  )
                         width 100%
                         
-    +class('grid_top')
+    +class('grid--top')
         align-items: flex-start
-    +class('grid_bottom')
+    +class('grid--bottom')
         align-items: flex-end
-    +class('grid_center')
+    +class('grid--center')
         align-items: center

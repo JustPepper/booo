@@ -1,0 +1,94 @@
+currency( _type = 'USD', _use-classes = false )
+
+    _type = replace(' ', '', _type)
+    
+
+    // Currency list
+    USD = '$'
+    COLON = '\20A1'
+    CRUZEIRO = '\20A2'
+    FRENCHFRANC = '\20A3'
+    LIRA = '\20A4'
+    MILL = '\20A5'
+    NAIRA = '\20A6'
+    PESETA = '\20A7'
+    RUPEE = '\20A8'
+    WON = '\20A9'
+    NEWSHEQEL = '\20AA'
+    DONG = '\20AB'
+    EURO = '\20AC'
+    KIP = '\20AD'
+    TUGRIK = '\20AE'
+    DRACHMA = '\20AF'
+    GERMANPENNY = '\20B0'
+    PESO = '\20B1'
+    GUARANI = '\20B2'
+    AUSTRAL = '\20B3'
+    HRYVNIA = '\20B4'
+    CEDI = '\20B5'
+    LIVRE = '\20B6'
+    SPESMILO = '\20B7'
+    TENGE = '\20B8'
+    INDIANRUPEE = '\20B9'
+    
+    
+    if _type == 'USD'
+        _type = USD
+    if _type == 'EURO'
+        _type = EURO
+    if _type == 'COLON'
+        _type = COLON
+    if _type == 'CRUZEIRO'
+        _type = CRUZEIRO
+    if _type == 'FRENCHFRANC'
+        _type = FRENCHFRANC
+    if _type == 'LIRA'
+        _type = LIRA
+    if _type == 'MILL'
+        _type = MILL
+    if _type == 'NAIRA'
+        _type = NAIRA
+    if _type == 'PESETA'
+        _type = PESETA
+    if _type == 'RUPEE'
+        _type = RUPEE
+    if _type == 'WON'
+        _type = WON
+    if _type == 'NEWSHEQEL'
+        _type = NEWSHEQEL
+    if _type == 'DONG'
+        _type = DONG
+    if _type == 'KIP'
+        _type = KIP
+    if _type == 'TUGRIK'
+        _type = TUGRIK
+    if _type == 'DRACHMA'
+        _type = DRACHMA
+    if _type == 'GERMANPENNY'
+        _type = GERMANPENNY
+    if _type == 'PESO'
+        _type = PESO
+    if _type == 'GUARANI'
+        _type = GUARANI
+    if _type == 'AUSTRAL'
+        _type = AUSTRAL
+    if _type == 'HRYVNIA'
+        _type = HRYVNIA
+    if _type == 'CEDI'
+        _type = CEDI
+    if _type == 'LIVRE'
+        _type = LIVRE
+    if _type == 'SPESMILO'
+        _type = SPESMILO
+    if _type == 'TENGE'
+        _type = TENGE
+    if _type == 'INDIANRUPEE'
+        _type = INDIANRUPEE
+    
+    
+    position relative
+    &:before
+        content _type
+        position relative
+        left 0
+        {block}

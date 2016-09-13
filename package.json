@@ -1,6 +1,6 @@
 {
   "name": "booo",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A better way to approach DRY and avoid unused clases in your CSS projects.",
   "main": "lib/booo.js",
   "scripts": {

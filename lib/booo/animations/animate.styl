@@ -5,35 +5,105 @@
 //
 // Copyright (c) 2016 Daniel Eden
 //
-use-animate( options = {} )
-    .animated
-        -webkit-animation-duration: 1s
-        animation-duration: 1s
+use-animate( o = {} )
+
+    $disabled = o._disable ? unquote(o._disable) : null
+    
+    use('../core/disable.js', { disabled: $disabled })
+    
+    _delay = _delay in o ? o._delay : 0s
+    _infinite = _infinite in o ? o._infinite : false
+    _duration = _duration in o ? o._duration : 1s
+    _bounce = _bounce in o ? o._bounce : false 
+    _flash = _flash in o ? o._flash : false
+    _pulse = _pulse in o ? o._pulse : false
+    _rubberBand= _rubberBand in o ? o._rubberBand : false
+    _shake = _shake in o ? o._shake : false
+    _headShake= _headShake in o ? o._headShake : false
+    _swing = _swing in o ? o._swing : false
+    _tada = _tada in o ? o._tada : false
+    _wobble = _wobble in o ? o._wobble : false
+    _jello = _jello in o ? o._jello : false
+    _bounceIn = _bounceIn in o ? o._bounceIn : false
+    _bounceInDown = _bounceInDown in o ? o._bounceInDown : false
+    _bounceInLeft = _bounceInLeft in o ? o._bounceInLeft : false
+    _bounceInRight = _bounceInRight in o ? o._bounceInRight : false
+    _bounceInUp = _bounceInUp in o ? o._bounceInUp : false
+    _bounceOut = _bounceOut in o ? o._bounceOut : false
+    _bounceOutDown = _bounceOutDown in o ? o._bounceOutDown : false
+    _bounceOutLeft = _bounceOutLeft in o ? o._bounceOutLeft : false
+    _bounceOutRight = _bounceOutRight in o ? o._bounceOutRight : false
+    _bounceOutUp = _bounceOutUp in o ? o._bounceOutUp : false
+    _fadeIn = _fadeIn in o ? o._fadeIn : false
+    _fadeInDown = _fadeInDown in o ? o._fadeInDown : false
+    _fadeInDownBig = _fadeInDownBig in o ? o._fadeInDownBig : false
+    _fadeInLeft = _fadeInLeft in o ? o._fadeInLeft : false
+    _fadeInLeftBig = _fadeInLeftBig in o ? o._fadeInLeftBig : false
+    _fadeInRight = _fadeInRight in o ? o._fadeInRight : false
+    _fadeInRightBig = _fadeInRightBig in o ? o._fadeInRightBig : false
+    _fadeInUp = _fadeInUp in o ? o._fadeInUp : false
+    _fadeInUpBig = _fadeInUpBig in o ? o._fadeInUpBig : false
+    _fadeOut = _fadeOut in o ? o._fadeOut : false
+    _fadeOutDown = _fadeOutDown in o ? o._fadeOutDown : false
+    _fadeOutDownBig = _fadeOutDownBig in o ? o._fadeOutDownBig : false
+    _fadeOutLeft = _fadeOutLeft in o ? o._fadeOutLeft : false
+    _fadeOutLeftBig = _fadeOutLeftBig in o ? o._fadeOutLeftBig : false
+    _fadeOutRight = _fadeOutRight in o ? o._fadeOutRight : false
+    _fadeOutRightBig = _fadeOutRightBig in o ? o._fadeOutRightBig : false
+    _fadeOutUp = _fadeOutUp in o ? o._fadeOutUp : false
+    _fadeOutUpBig = _fadeOutUpBig in o ? o._fadeOutUpBig : false
+    _flip = _flip in o ? o._flip : false
+    _flipInX = _flipInX in o ? o._flipInX : false
+    _flipInY = _flipInY in o ? o._flipInY : false
+    _flipOutX = _flipOutX in o ? o._flipOutX : false
+    _flipOutY = _flipOutY in o ? o._flipOutY : false
+    _lightSpeedIn = _lightSpeedIn in o ? o._lightSpeedIn : false
+    _lightSpeedOut = _lightSpeedOut in o ? o._lightSpeedOut : false
+    _rotateIn = _rotateIn in o ? o._rotateIn : false
+    _rotateInDownLeft = _rotateInDownLeft in o ? o._rotateInDownLeft : false
+    _rotateInDownRight = _rotateInDownRight in o ? o._rotateInDownRight : false
+    _rotateInUpLeft = _rotateInUpLeft in o ? o._rotateInUpLeft : false
+    _rotateInUpRight = _rotateInUpRight in o ? o._rotateInUpRight : false
+    _rotateOut = _rotateOut in o ? o._rotateOut : false
+    _rotateOutDownLeft = _rotateOutDownLeft in o ? o._rotateOutDownLeft : false
+    _rotateOutDownRight = _rotateOutDownRight in o ? o._rotateOutDownRight : false
+    _rotateOutUpLeft = _rotateOutUpLeft in o ? o._rotateOutUpLeft : false
+    _rotateOutUpRight = _rotateOutUpRight in o ? o._rotateOutUpRight : false
+    _hinge = _hinge in o ? o._hinge : false
+    _rollIn = _rollIn in o ? o._rollIn : false
+    _rollOut = _rollOut in o ? o._rollOut : false
+    _zoomIn = _zoomIn in o ? o._zoomIn : false
+    _zoomInDown = _zoomInDown in o ? o._zoomInDown : false
+    _zoomInLeft = _zoomInLeft in o ? o._zoomInLeft : false
+    _zoomInRight = _zoomInRight in o ? o._zoomInRight : false
+    _zoomInUp = _zoomInUp in o ? o._zoomInUp : false
+    _zoomOut = _zoomOut in o ? o._zoomOut : false
+    _zoomOutDown = _zoomOutDown in o ? o._zoomOutDown : false
+    _zoomOutLeft = _zoomOutLeft in o ? o._zoomOutLeft : false
+    _zoomOutRight = _zoomOutRight in o ? o._zoomOutRight : false
+    _zoomOutUp = _zoomOutUp in o ? o._zoomOutUp : false
+    _slideInDown = _slideInDown in o ? o._slideInDown : false
+    _slideInLeft = _slideInLeft in o ? o._slideInLeft : false
+    _slideInRight = _slideInRight in o ? o._slideInRight : false
+    _slideInUp = _slideInUp in o ? o._slideInUp : false
+    _slideOutUp = _slideOutUp in o ? o.__slideOutUp : false
+    _slideOutDown = _slideOutDown in o ? o._slideOutDown : false
+    _slideOutLeft = _slideOutLeft  in o ? o._slideOutLeft : false
+    _slideOutRight = _slideOutRight in o ? o._slideOutRight : false
+    
+    +class('animated')
+        animation-duration: _duration 
         -webkit-animation-fill-mode: both
         animation-fill-mode: both
-        if options['infinite'] && options['infinite'] = true
-            &.infinite
-                -webkit-animation-iteration-count: infinite
-                animation-iteration-count: infinite
-        if options.flipOutX && options.flipOutX = true
-            &.flipOutX
-              -webkit-animation-duration: .75s;
-              animation-duration: .75s;
-        if options.flipOutY && options.flipOutY = true
-            &.flipOutY
-              -webkit-animation-duration: .75s;
-              animation-duration: .75s;
-        if options.bounceIn && options.bounceIn = true
-            &.bounceIn
-              -webkit-animation-duration: .75s;
-              animation-duration: .75s;
-        if options.bounceOut && options.bounceOut = true
-            &.bounceOut
-              -webkit-animation-duration: .75s;
-              animation-duration: .75s;
+        if _delay
+          animation-delay _delay
+    
+    if _infinite
+      +class('infinite')
+        animation-iteration-count infinite
     
     // # bounce
-    if options.bounce && options.bounce = true
+    if _bounce
         @keyframes bounce 
           from, 20%, 53%, 80%, to 
             -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -56,25 +126,25 @@ use-animate( options = {} )
           90% 
             -webkit-transform: translate3d(0,-4px,0);
             transform: translate3d(0,-4px,0);
-        .bounce 
+        +class('bounce') 
             -webkit-animation-name: bounce
             animation-name: bounce
             -webkit-transform-origin: center bottom
             transform-origin: center bottom
 
     // # flash
-    if options.flash && options.flash = true
+    if _flash
         @keyframes flash 
             from, 50%, to 
                 opacity: 1
             25%, 75% 
                 opacity: 0
-        .flash 
+        +class('flash')
             -webkit-animation-name: flash
             animation-name: flash
             
     // # pulse
-    if options.pulse && options.pulse = true
+    if _pulse
         @keyframes pulse 
             from 
                 -webkit-transform: scale3d(1, 1, 1)
@@ -85,13 +155,13 @@ use-animate( options = {} )
             to 
                 -webkit-transform: scale3d(1, 1, 1)
                 transform: scale3d(1, 1, 1)
-        .pulse
+        +class('pulse')
             -webkit-animation-name: pulse
             animation-name: pulse
             
     // # rubberBand
-    if options.rubberBand && options.rubberBand = true
-        @keyframes rubberBand 
+    if _rubberBand
+        @keyframes rubberBand
             from 
                 -webkit-transform: scale3d(1, 1, 1)
                 transform: scale3d(1, 1, 1)
@@ -113,12 +183,12 @@ use-animate( options = {} )
             to 
                 -webkit-transform: scale3d(1, 1, 1)
                 transform: scale3d(1, 1, 1)
-        .rubberBand 
+        +class('rubberBand') 
             -webkit-animation-name: rubberBand
             animation-name: rubberBand
         
     // # shake
-    if options.shake && options.shake = true
+    if _shake
         @keyframes shake 
             from, to 
                 -webkit-transform: translate3d(0, 0, 0)
@@ -129,12 +199,12 @@ use-animate( options = {} )
             20%, 40%, 60%, 80% 
                 -webkit-transform: translate3d(10px, 0, 0)
                 transform: translate3d(10px, 0, 0)
-            .shake
-                -webkit-animation-name: shake;
-                animation-name: shake;
+          +class('shake')
+              -webkit-animation-name: shake;
+              animation-name: shake;
 
     // # headShake
-    if options.headShake && options.headShake = true
+    if _headShake
         @keyframes headShake 
           0% 
             -webkit-transform: translateX(0)
@@ -154,14 +224,14 @@ use-animate( options = {} )
           50% 
             -webkit-transform: translateX(0)
             transform: translateX(0)
-        .headShake 
+        +class('headShake')
           -webkit-animation-timing-function: ease-in-out
           animation-timing-function: ease-in-out
           -webkit-animation-name: headShake
           animation-name: headShake
     
     // # swing
-    if options.swing && options.swing = true
+    if _swing
         @keyframes swing {
           20% {
             -webkit-transform: rotate3d(0, 0, 1, 15deg);
@@ -188,15 +258,14 @@ use-animate( options = {} )
             transform: rotate3d(0, 0, 1, 0deg);
           }
         }
-        .swing {
+        +class('swing')
           -webkit-transform-origin: top center;
           transform-origin: top center;
           -webkit-animation-name: swing;
           animation-name: swing;
-        }
         
     // # tada
-    if options.tada && options.tada = true
+    if _tada
         @keyframes tada {
           from {
             -webkit-transform: scale3d(1, 1, 1);
@@ -224,13 +293,13 @@ use-animate( options = {} )
           }
         }
         
-        .tada {
+        +class('tada')
           -webkit-animation-name: tada;
           animation-name: tada;
-        }
+        
     
     // # wobble
-    if options.wobble && options.wobble = true
+    if _wobble
         @keyframes wobble {
           from {
             -webkit-transform: none;
@@ -268,13 +337,13 @@ use-animate( options = {} )
           }
         }
         
-        .wobble {
+        +class('wobble') 
           -webkit-animation-name: wobble;
           animation-name: wobble;
-        }
+        
         
     // # jello
-    if options.jello && options.jello = true
+    if _jello
         @keyframes jello {
           from, 11.1%, to {
             -webkit-transform: none;
@@ -317,15 +386,15 @@ use-animate( options = {} )
           }
         }
         
-        .jello {
+        +class('jello') 
           -webkit-animation-name: jello;
           animation-name: jello;
           -webkit-transform-origin: center;
           transform-origin: center;
-        }
+        
 
     // # bounceIn
-    if options.bounceIn && options.bounceIn = true
+    if _bounceIn
         @keyframes bounceIn {
           from, 20%, 40%, 60%, 80%, to {
             -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -366,13 +435,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceIn {
+        +class('bounceIn')
           -webkit-animation-name: bounceIn;
           animation-name: bounceIn;
-        }
+          animation-duration: .75s;
         
     // # bounceInDown
-    if options.bounceInDown && options.bounceInDown = true
+    if _bounceInDown
         @keyframes bounceInDown {
           from, 60%, 75%, 90%, to {
             -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -407,13 +476,12 @@ use-animate( options = {} )
           }
         }
         
-        .bounceInDown {
+        +class('bounceInDown')
           -webkit-animation-name: bounceInDown;
-          animation-name: bounceInDown;
-        }
+          
         
     // # bounceInLeft
-    if options.bounceInLeft && options.bounceInLeft = true
+    if _bounceInLeft
         @keyframes bounceInLeft {
           from, 60%, 75%, 90%, to {
             -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -448,13 +516,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceInLeft {
+        +class('bounceInLeft')
           -webkit-animation-name: bounceInLeft;
           animation-name: bounceInLeft;
-        }
+        
         
     // # bounceInRight
-    if options.bounceInRight && options.bounceInRight = true
+    if _bounceInRight
         @keyframes bounceInRight {
           from, 60%, 75%, 90%, to {
             -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -489,13 +557,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceInRight {
+        +class('bounceInRight')
           -webkit-animation-name: bounceInRight;
           animation-name: bounceInRight;
-        }
+        
         
     // # bounceInUp
-    if options.bounceInUp && options.bounceInUp = true
+    if _bounceInUp 
         @keyframes bounceInUp {
           from, 60%, 75%, 90%, to {
             -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -530,13 +598,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceInUp {
+        +class('bounceInUp')
           -webkit-animation-name: bounceInUp;
           animation-name: bounceInUp;
-        }
+        
         
     // # bounceOut
-    if options.bounceOut && options.bounceOut = true
+    if _bounceOut
         @keyframes bounceOut {
           20% {
             -webkit-transform: scale3d(.9, .9, .9);
@@ -556,13 +624,14 @@ use-animate( options = {} )
           }
         }
         
-        .bounceOut {
+        +class('bounceOut')
           -webkit-animation-name: bounceOut;
           animation-name: bounceOut;
-        }
+          animation-duration: .75s;
+        
     
     // # bounceOutDown
-    if options.bounceOutDown && options.bounceOutDown = true
+    if _bounceOutDown
         @keyframes bounceOutDown {
           20% {
             -webkit-transform: translate3d(0, 10px, 0);
@@ -582,13 +651,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceOutDown {
+        +class('bounceOutDown')
           -webkit-animation-name: bounceOutDown;
           animation-name: bounceOutDown;
-        }
+        
     
     // # bounceOutLeft
-    if options.bounceOutLeft && options.bounceOutLeft = true
+    if _bounceOutLeft
         @keyframes bounceOutLeft {
           20% {
             opacity: 1;
@@ -603,13 +672,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceOutLeft {
+        +class('bounceOutLeft')
           -webkit-animation-name: bounceOutLeft;
           animation-name: bounceOutLeft;
-        }
+        
     
     // # bounceOutRight
-    if options.bounceOutRight && options.bounceOutRight = true
+    if _bounceOutRight
         @keyframes bounceOutRight {
           20% {
             opacity: 1;
@@ -624,13 +693,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceOutRight {
+        +class('bounceOutRight')
           -webkit-animation-name: bounceOutRight;
           animation-name: bounceOutRight;
-        }
+        
     
     // # bounceOutUp
-    if options.bounceOutUp && options.bounceOutUp = true
+    if _bounceOutUp 
         @keyframes bounceOutUp {
           20% {
             -webkit-transform: translate3d(0, -10px, 0);
@@ -650,13 +719,13 @@ use-animate( options = {} )
           }
         }
         
-        .bounceOutUp {
+        +class('bounceOutUp')
           -webkit-animation-name: bounceOutUp;
           animation-name: bounceOutUp;
-        }
+        
 
     // # fadeIn
-    if options.fadeIn && options.fadeIn = true
+    if _fadeIn 
         @keyframes fadeIn {
           from {
             opacity: 0;
@@ -667,13 +736,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeIn {
+        +class('fadeIn')
           -webkit-animation-name: fadeIn;
           animation-name: fadeIn;
-        }
+        
         
     // # fadeInDown
-    if options.fadeInDown && options.fadeInDown = true
+    if _fadeInDown 
         @keyframes fadeInDown {
           from {
             opacity: 0;
@@ -688,13 +757,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInDown {
+        +class('fadeInDown')
           -webkit-animation-name: fadeInDown;
           animation-name: fadeInDown;
-        }
+        
     
     // # fadeInDownBig
-    if options.fadeInDownBig && options.fadeInDownBig = true
+    if _fadeInDownBig 
         @keyframes fadeInDownBig {
           from {
             opacity: 0;
@@ -709,13 +778,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInDownBig {
+        +class('fadeInDownBig')
           -webkit-animation-name: fadeInDownBig;
           animation-name: fadeInDownBig;
-        }
+        
         
     // # fadeInLeft
-    if options.fadeInLeft && options.fadeInLeft = true
+    if _fadeInLeft 
         @keyframes fadeInLeft {
           from {
             opacity: 0;
@@ -730,13 +799,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInLeft {
+        +class('fadeInLeft')
           -webkit-animation-name: fadeInLeft;
           animation-name: fadeInLeft;
-        }
+        
     
     // # fadeInLeftBig
-    if options.fadeInLeftBig && options.fadeInLeftBig = true
+    if _fadeInLeftBig 
         @keyframes fadeInLeftBig {
           from {
             opacity: 0;
@@ -751,13 +820,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInLeftBig {
+        +class('fadeInLeftBig')
           -webkit-animation-name: fadeInLeftBig;
           animation-name: fadeInLeftBig;
-        }
+        
     
     // # fadeInRight
-    if options.fadeInRight && options.fadeInRight = true
+    if _fadeInRight
         @keyframes fadeInRight {
           from {
             opacity: 0;
@@ -772,13 +841,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInRight {
+        +class('fadeInRight')
           -webkit-animation-name: fadeInRight;
           animation-name: fadeInRight;
-        }
+        
     
     // # fadeInRightBig
-    if options.fadeInRightBig && options.fadeInRightBig = true
+    if _fadeInRightBig 
         @keyframes fadeInRightBig {
           from {
             opacity: 0;
@@ -793,13 +862,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInRightBig {
+        +class('fadeInRightBig')
           -webkit-animation-name: fadeInRightBig;
           animation-name: fadeInRightBig;
-        }
+        
     
     // # fadeInUp
-    if options.fadeInUp && options.fadeInUp = true
+    if _fadeInUp 
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -814,13 +883,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInUp {
+        +class('fadeInUp')
           -webkit-animation-name: fadeInUp;
           animation-name: fadeInUp;
-        }
+        
         
     // # fadeInUpBig
-    if options.fadeInUpBig && options.fadeInUpBig = true
+    if _fadeInUpBig 
         @keyframes fadeInUpBig {
           from {
             opacity: 0;
@@ -835,13 +904,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeInUpBig {
+        +class('fadeInUpBig')
           -webkit-animation-name: fadeInUpBig;
           animation-name: fadeInUpBig;
-        }
+        
     
     // # fadeOut
-    if options.fadeOut && options.fadeOut = true
+    if _fadeOut
         @keyframes fadeOut {
           from {
             opacity: 1;
@@ -852,13 +921,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOut {
+        +class('fadeOut')
           -webkit-animation-name: fadeOut;
           animation-name: fadeOut;
-        }
+        
         
     // # fadeOutDown
-    if options.fadeOutDown && options.fadeOutDown = true
+    if _fadeOutDown
         @keyframes fadeOutDown {
           from {
             opacity: 1;
@@ -871,13 +940,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutDown {
+        +class('fadeOutDown')
           -webkit-animation-name: fadeOutDown;
           animation-name: fadeOutDown;
-        }
+        
     
     // # fadeOutDownBig
-    if options.fadeOutDownBig && options.fadeOutDownBig = true
+    if _fadeOutDownBig 
         @keyframes fadeOutDownBig {
           from {
             opacity: 1;
@@ -890,13 +959,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutDownBig {
+        +class('fadeOutDownBig')
           -webkit-animation-name: fadeOutDownBig;
           animation-name: fadeOutDownBig;
-        }
+        
     
     // # fadeOutLeft
-    if options.fadeOutLeft && options.fadeOutLeft = true
+    if _fadeOutLeft 
         @keyframes fadeOutLeft {
           from {
             opacity: 1;
@@ -909,13 +978,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutLeft {
+        +class('fadeOutLeft')
           -webkit-animation-name: fadeOutLeft;
           animation-name: fadeOutLeft;
-        }
+        
     
     // # fadeOutLeftBig
-    if options.fadeOutLeftBig && options.fadeOutLeftBig = true
+    if _fadeOutLeftBig 
         @keyframes fadeOutLeftBig {
           from {
             opacity: 1;
@@ -928,13 +997,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutLeftBig {
+        +class('fadeOutLeftBig')
           -webkit-animation-name: fadeOutLeftBig;
           animation-name: fadeOutLeftBig;
-        }
+        
     
     // # fadeOutRight
-    if options.fadeOutRight && options.fadeOutRight = true
+    if _fadeOutRight 
         @keyframes fadeOutRight {
           from {
             opacity: 1;
@@ -947,13 +1016,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutRight {
+        +class('fadeOutRight')
           -webkit-animation-name: fadeOutRight;
           animation-name: fadeOutRight;
-        }
+        
     
     // # fadeOutRightBig
-    if options.fadeOutRightBig && options.fadeOutRightBig = true
+    if _fadeOutRightBig 
         @keyframes fadeOutRightBig {
           from {
             opacity: 1;
@@ -966,13 +1035,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutRightBig {
+        +class('fadeOutRightBig') 
           -webkit-animation-name: fadeOutRightBig;
           animation-name: fadeOutRightBig;
-        }
+        
         
     // # fadeOutUp
-    if options.fadeOutUp && options.fadeOutUp = true
+    if _fadeOutUp
         @keyframes fadeOutUp {
           from {
             opacity: 1;
@@ -985,13 +1054,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutUp {
+        +class('fadeOutUp')
           -webkit-animation-name: fadeOutUp;
           animation-name: fadeOutUp;
-        }
+        
     
     // # fadeOutUpBig
-    if options.fadeOutUpBig && options.fadeOutUpBig = true
+    if _fadeOutUpBig
         @keyframes fadeOutUpBig {
           from {
             opacity: 1;
@@ -1004,13 +1073,13 @@ use-animate( options = {} )
           }
         }
         
-        .fadeOutUpBig {
+        +class('fadeOutUpBig')
           -webkit-animation-name: fadeOutUpBig;
           animation-name: fadeOutUpBig;
-        }
+        
     
     // # flip
-    if options.flip && options.flip = true
+    if _flip 
         @keyframes flip {
           from {
             -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
@@ -1048,15 +1117,15 @@ use-animate( options = {} )
           }
         }
         
-        .animated.flip {
-          -webkit-backface-visibility: visible;
-          backface-visibility: visible;
-          -webkit-animation-name: flip;
-          animation-name: flip;
-        }
+        +class('animated.flip') 
+            -webkit-backface-visibility: visible;
+            backface-visibility: visible;
+            -webkit-animation-name: flip;
+            animation-name: flip;
+        
     
     // # flipInX
-    if options.flipInX && options.flipInX = true
+    if _flipInX
         @keyframes flipInX {
           from {
             -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -1090,15 +1159,15 @@ use-animate( options = {} )
           }
         }
         
-        .flipInX {
+        +class('flipInX')
           -webkit-backface-visibility: visible !important;
           backface-visibility: visible !important;
           -webkit-animation-name: flipInX;
           animation-name: flipInX;
-        }
+        
     
     // # flipInY
-    if options.flipInY && options.flipInY = true
+    if _flipInY 
         @keyframes flipInY {
           from {
             -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
@@ -1132,15 +1201,15 @@ use-animate( options = {} )
           }
         }
         
-        .flipInY {
+        +class('flipInY')
           -webkit-backface-visibility: visible !important;
           backface-visibility: visible !important;
           -webkit-animation-name: flipInY;
           animation-name: flipInY;
-        }
+        
     
     // # flipOutX
-    if options.flipOutX && options.flipOutX = true
+    if _flipOutX
         @keyframes flipOutX {
           from {
             -webkit-transform: perspective(400px);
@@ -1160,15 +1229,16 @@ use-animate( options = {} )
           }
         }
         
-        .flipOutX {
+        +class('flipOutX')
           -webkit-animation-name: flipOutX;
           animation-name: flipOutX;
           -webkit-backface-visibility: visible !important;
           backface-visibility: visible !important;
-        }
+          animation-duration: .75s;
+        
     
     // # flipOutY
-    if options.flipOutY && options.flipOutY = true
+    if _flipOutY 
         @keyframes flipOutY {
           from {
             -webkit-transform: perspective(400px);
@@ -1188,15 +1258,16 @@ use-animate( options = {} )
           }
         }
         
-        .flipOutY {
+        +class('flipOutY')
           -webkit-backface-visibility: visible !important;
           backface-visibility: visible !important;
           -webkit-animation-name: flipOutY;
           animation-name: flipOutY;
-        }
+          animation-duration: .75s;
+        
     
     // # lightSpeedIn
-    if options.lightSpeedIn && options.lightSpeedIn = true
+    if _lightSpeedIn
         @keyframes lightSpeedIn {
           from {
             -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);
@@ -1223,15 +1294,15 @@ use-animate( options = {} )
           }
         }
         
-        .lightSpeedIn {
+        +class('lightSpeedIn')
           -webkit-animation-name: lightSpeedIn;
           animation-name: lightSpeedIn;
           -webkit-animation-timing-function: ease-out;
           animation-timing-function: ease-out;
-        }
+        
     
     // # lightSpeedOut
-    if options.lightSpeedOut && options.lightSpeedOut = true
+    if _lightSpeedOut
         @keyframes lightSpeedOut {
           from {
             opacity: 1;
@@ -1244,15 +1315,15 @@ use-animate( options = {} )
           }
         }
         
-        .lightSpeedOut {
+        +class('lightSpeedOut')
           -webkit-animation-name: lightSpeedOut;
           animation-name: lightSpeedOut;
           -webkit-animation-timing-function: ease-in;
           animation-timing-function: ease-in;
-        }
+        
     
     // # rotateIn
-    if options.rotateIn && options.rotateIn = true
+    if _rotateIn 
         @keyframes rotateIn {
           from {
             -webkit-transform-origin: center;
@@ -1271,13 +1342,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateIn {
+        +class('rotateIn')
           -webkit-animation-name: rotateIn;
           animation-name: rotateIn;
-        }
+        
     
     // # rotateInDownLeft
-    if options.rotateInDownLeft && options.rotateInDownLeft = true
+    if _rotateInDownLeft 
         @keyframes rotateInDownLeft {
           from {
             -webkit-transform-origin: left bottom;
@@ -1296,13 +1367,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateInDownLeft {
+        +class('rotateInDownLeft')
           -webkit-animation-name: rotateInDownLeft;
           animation-name: rotateInDownLeft;
-        }
+        
     
     // # rotateInDownRight
-    if options.rotateInDownRight && options.rotateInDownRight = true
+    if _rotateInDownRight 
         @keyframes rotateInDownRight {
           from {
             -webkit-transform-origin: right bottom;
@@ -1321,13 +1392,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateInDownRight {
+        +class('rotateInDownRight')
           -webkit-animation-name: rotateInDownRight;
           animation-name: rotateInDownRight;
-        }
+        
     
     // # rotateInUpLeft
-    if options.rotateInUpLeft && options.rotateInUpLeft = true
+    if _rotateInUpLeft
         @keyframes rotateInUpLeft {
           from {
             -webkit-transform-origin: left bottom;
@@ -1346,13 +1417,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateInUpLeft {
+        +class('rotateInUpLeft')
           -webkit-animation-name: rotateInUpLeft;
           animation-name: rotateInUpLeft;
-        }
+        
     
     // # rotateInUpRight
-    if options.rotateInUpRight && options.rotateInUpRight = true
+    if _rotateInUpRight 
         @keyframes rotateInUpRight {
           from {
             -webkit-transform-origin: right bottom;
@@ -1371,13 +1442,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateInUpRight {
+        +class('rotateInUpRight')
           -webkit-animation-name: rotateInUpRight;
           animation-name: rotateInUpRight;
-        }
+        
     
     // # rotateOut
-    if options.rotateOut && options.rotateOut = true
+    if _rotateOut 
         @keyframes rotateOut {
           from {
             -webkit-transform-origin: center;
@@ -1394,13 +1465,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateOut {
+        +class('rotateOut')
           -webkit-animation-name: rotateOut;
           animation-name: rotateOut;
-        }
+        
     
     // # rotateOutDownLeft
-    if options.rotateOutDownLeft && options.rotateOutDownLeft = true
+    if _rotateOutDownLeft 
         @keyframes rotateOutDownLeft {
           from {
             -webkit-transform-origin: left bottom;
@@ -1417,13 +1488,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateOutDownLeft {
+        +class('rotateOutDownLeft')
           -webkit-animation-name: rotateOutDownLeft;
           animation-name: rotateOutDownLeft;
-        }
+        
     
     // # rotateOutDownRight
-    if options.rotateOutDownRight && options.rotateOutDownRight = true
+    if _rotateOutDownRight 
         @keyframes rotateOutDownRight {
           from {
             -webkit-transform-origin: right bottom;
@@ -1440,13 +1511,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateOutDownRight {
+        +class('rotateOutDownRight')
           -webkit-animation-name: rotateOutDownRight;
           animation-name: rotateOutDownRight;
-        }
+        
     
     // # rotateOutUpLeft
-    if options.rotateOutUpLeft && options.rotateOutUpLeft = true
+    if _rotateOutUpLeft 
         @keyframes rotateOutUpLeft {
           from {
             -webkit-transform-origin: left bottom;
@@ -1463,13 +1534,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateOutUpLeft {
+        +class('rotateOutUpLeft')
           -webkit-animation-name: rotateOutUpLeft;
           animation-name: rotateOutUpLeft;
-        }
+        
     
     // # rotateOutUpRight
-    if options.rotateOutUpRight && options.rotateOutUpRight = true
+    if _rotateOutUpRight 
         @keyframes rotateOutUpRight {
           from {
             -webkit-transform-origin: right bottom;
@@ -1486,13 +1557,13 @@ use-animate( options = {} )
           }
         }
         
-        .rotateOutUpRight {
+        +class('rotateOutUpRight')
           -webkit-animation-name: rotateOutUpRight;
           animation-name: rotateOutUpRight;
-        }
+        
     
     // # hinge
-    if options.hinge && options.hinge = true
+    if _hinge 
         @keyframes hinge {
           0% {
             -webkit-transform-origin: top left;
@@ -1527,15 +1598,15 @@ use-animate( options = {} )
           }
         }
         
-        .hinge {
+        +class('hinge')
           -webkit-animation-name: hinge;
           animation-name: hinge;
           -webkit-animation-duration: 2s;
           animation-duration: 2s;
-        }
+        
     
     // # rollIn
-    if options.rollIn && options.rollIn = true
+    if _rollIn 
         @keyframes rollIn {
           from {
             opacity: 0;
@@ -1550,13 +1621,13 @@ use-animate( options = {} )
           }
         }
         
-        .rollIn {
+        +class('rollIn')
           -webkit-animation-name: rollIn;
           animation-name: rollIn;
-        }
+        
     
     // # rollOut
-    if options.rollOut && options.rollOut = true
+    if _rollOut 
         @keyframes rollOut {
           from {
             opacity: 1;
@@ -1569,13 +1640,13 @@ use-animate( options = {} )
           }
         }
         
-        .rollOut {
+        +class('rollOut')
           -webkit-animation-name: rollOut;
           animation-name: rollOut;
-        }
+        
     
     // # zoomIn
-    if options.zoomIn && options.zoomIn = true
+    if _zoomIn 
         @keyframes zoomIn {
           from {
             opacity: 0;
@@ -1588,13 +1659,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomIn {
+        +class('zoomIn')
           -webkit-animation-name: zoomIn;
           animation-name: zoomIn;
-        }
+        
     
     // # zoomInDown
-    if options.zoomInDown && options.zoomInDown = true
+    if _zoomInDown
         @keyframes zoomInDown {
           from {
             opacity: 0;
@@ -1613,13 +1684,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomInDown {
+        +class('zoomInDown')
           -webkit-animation-name: zoomInDown;
           animation-name: zoomInDown;
-        }
+        
     
     // # zoomInLeft
-    if options.zoomInLeft && options.zoomInLeft = true
+    if _zoomInLeft 
         @keyframes zoomInLeft {
           from {
             opacity: 0;
@@ -1638,13 +1709,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomInLeft {
+        +class('zoomInLeft')
           -webkit-animation-name: zoomInLeft;
           animation-name: zoomInLeft;
-        }
+        
     
     // # zoomInRight
-    if options.zoomInRight && options.zoomInRight = true
+    if _zoomInRight 
         @keyframes zoomInRight {
           from {
             opacity: 0;
@@ -1663,13 +1734,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomInRight {
+        +class('zoomInRight')
           -webkit-animation-name: zoomInRight;
           animation-name: zoomInRight;
-        }
+        
     
     // # zoomInUp
-    if options.zoomInUp && options.zoomInUp = true
+    if _zoomInUp
         @keyframes zoomInUp {
           from {
             opacity: 0;
@@ -1688,13 +1759,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomInUp {
+        +class('zoomInUp') 
           -webkit-animation-name: zoomInUp;
           animation-name: zoomInUp;
-        }
+        
     
     // # zoomOut
-    if options.zoomOut && options.zoomOut = true
+    if _zoomOut 
         @keyframes zoomOut {
           from {
             opacity: 1;
@@ -1711,13 +1782,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomOut {
+        +class('zoomOut')
           -webkit-animation-name: zoomOut;
           animation-name: zoomOut;
-        }
+        
     
     // # zoomOutDown
-    if options.zoomOutDown && options.zoomOutDown = true
+    if _zoomOutDown 
         @keyframes zoomOutDown {
           40% {
             opacity: 1;
@@ -1738,13 +1809,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomOutDown {
+        +class('zoomOutDown')
           -webkit-animation-name: zoomOutDown;
           animation-name: zoomOutDown;
-        }
+        
     
     // # zoomOutLeft
-    if options.zoomOutLeft && options.zoomOutLeft = true
+    if _zoomOutLeft 
         @keyframes zoomOutLeft {
           40% {
             opacity: 1;
@@ -1761,13 +1832,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomOutLeft {
+        +class('zoomOutLeft')
           -webkit-animation-name: zoomOutLeft;
           animation-name: zoomOutLeft;
-        }
+        
     
     // # zoomOutRight
-    if options.zoomOutRight && options.zoomOutRight = true
+    if _zoomOutRight 
         @keyframes zoomOutRight {
           40% {
             opacity: 1;
@@ -1784,13 +1855,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomOutRight {
+        +class('zoomOutRight')
           -webkit-animation-name: zoomOutRight;
           animation-name: zoomOutRight;
-        }
+        
     
     // # zoomOutUp
-    if options.zoomOutUp && options.zoomOutUp = true 
+    if _zoomOutUp
         @keyframes zoomOutUp {
           40% {
             opacity: 1;
@@ -1811,13 +1882,13 @@ use-animate( options = {} )
           }
         }
         
-        .zoomOutUp {
+        +class('zoomOutUp')
           -webkit-animation-name: zoomOutUp;
           animation-name: zoomOutUp;
-        }
+        
     
     // # slideInDown
-    if options.slideInDown && options.slideInDown = true
+    if _slideInDown 
         @keyframes slideInDown {
           from {
             -webkit-transform: translate3d(0, -100%, 0);
@@ -1831,13 +1902,13 @@ use-animate( options = {} )
           }
         }
         
-        .slideInDown {
+        +class('slideInDown')
           -webkit-animation-name: slideInDown;
           animation-name: slideInDown;
-        }
+        
     
     // # slideInLeft
-    if options.slideInLeft && options.slideInLeft = true
+    if _slideInLeft
         @keyframes slideInLeft {
           from {
             -webkit-transform: translate3d(-100%, 0, 0);
@@ -1851,13 +1922,13 @@ use-animate( options = {} )
           }
         }
         
-        .slideInLeft {
+        +class('slideInLeft')
           -webkit-animation-name: slideInLeft;
           animation-name: slideInLeft;
-        }
+        
     
     // # slideInRight
-    if options.slideInRight && options.slideInRight = true
+    if _slideInRight
         @keyframes slideInRight {
           from {
             -webkit-transform: translate3d(100%, 0, 0);
@@ -1871,13 +1942,13 @@ use-animate( options = {} )
           }
         }
         
-        .slideInRight {
+        +class('slideInRight')
           -webkit-animation-name: slideInRight;
           animation-name: slideInRight;
-        }
+        
     
     // # slideInUp
-    if options.slideInUp && options.slideInUp = true
+    if _slideInUp
         @keyframes slideInUp {
           from {
             -webkit-transform: translate3d(0, 100%, 0);
@@ -1891,13 +1962,13 @@ use-animate( options = {} )
           }
         }
         
-        .slideInUp {
+        +class('slideInUp')
           -webkit-animation-name: slideInUp;
           animation-name: slideInUp;
-        }
+        
     
     // # slideOutDown
-    if options.slideOutDown && options.slideOutDown = true
+    if _slideOutDown 
         @keyframes slideOutDown {
           from {
             -webkit-transform: translate3d(0, 0, 0);
@@ -1911,13 +1982,13 @@ use-animate( options = {} )
           }
         }
         
-        .slideOutDown {
+        +class('slideOutDown')
           -webkit-animation-name: slideOutDown;
           animation-name: slideOutDown;
-        }
+        
     
     // # slideOutLeft
-    if options.slideOutLeft && options.slideOutLeft = true
+    if _slideOutLeft 
         @keyframes slideOutLeft {
           from {
             -webkit-transform: translate3d(0, 0, 0);
@@ -1931,13 +2002,13 @@ use-animate( options = {} )
           }
         }
         
-        .slideOutLeft {
+        +class('slideOutLeft')
           -webkit-animation-name: slideOutLeft;
           animation-name: slideOutLeft;
-        }
+        
     
     // # slideOutRight
-    if options.slideOutRight && options.slideOutRight = true
+    if _slideOutRight
         @keyframes slideOutRight {
           from {
             -webkit-transform: translate3d(0, 0, 0);
@@ -1951,13 +2022,13 @@ use-animate( options = {} )
           }
         }
         
-        .slideOutRight {
+        +class('slideOutRight')
           -webkit-animation-name: slideOutRight;
           animation-name: slideOutRight;
-        }
+        
     
     // # slideOutUp
-    if options.slideOutUp && options.slideOutUp = true
+    if _slideOutUp 
         @keyframes slideOutUp {
           from {
             -webkit-transform: translate3d(0, 0, 0);
@@ -1971,7 +2042,8 @@ use-animate( options = {} )
           }
         }
         
-        .slideOutUp {
+        +class('slideOutUp')
           -webkit-animation-name: slideOutUp;
           animation-name: slideOutUp;
-        }
+        
+  
