@@ -7,8 +7,8 @@ Bunch of mixins for sass, this was made for personal purposes only.
 ## Usage
 
 ```scss
-	@import 'node_modules/booo/mixins/mixins'
-	@import 'node_modules/booo/functions/functions'
+	@import 'node_modules/booo/mixins/mixins';
+	@import 'node_modules/booo/functions/functions';
 ```
 
 
